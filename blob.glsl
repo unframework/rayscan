@@ -17,8 +17,8 @@ float smin(float a, float b, float k) {
 
 float rawDistanceToObject(vec3 pt) {
     return smin(
-        distanceToSphere(pt, vec3(-0.500 + 0.05 * sin(u_time * 7.0),0.000,-5.000), 1.5),
-        distanceToSphere(pt, vec3(1.223,1.123,-4.731), 1.2 + 0.05 * sin(u_time * 2.5) * sin(u_time * 17.0)),
+        distanceToSphere(pt, vec3(-0.500 + 0.05 * sin(u_time * 14.0),0.000 + 0.01 * sin(u_time * 8.7),-5.000), 1.5),
+        distanceToSphere(pt, vec3(1.223,1.123,-4.731), 1.2 + 0.05 * sin(u_time * 5.0) * sin(u_time * 24.0)),
         5.0
     );
 }
@@ -72,7 +72,7 @@ void main() {
         float mainIntensity = -dot(intersectionNormal, rayDirection);
         float backIntensity = max(0.0, dot(rayCross, rayCross) - 0.4) / 0.6;
 
-        float layer = step(0.08, mod(photonPosition / 0.15, 1.0));
+        float layer = step(0.08, mod(photonPosition / 0.18, 1.0));
 
         gl_FragColor = vec4(layer * mainIntensity * mainIntensity * vec3(0.3,0.45,0.6) + (backIntensity * backIntensity) * vec3(0.2,0.3,0.4), 1.000);
     }
