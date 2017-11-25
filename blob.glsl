@@ -37,7 +37,7 @@ float distanceToObject(vec3 pt) {
 
 vec3 calculateNormal(in vec3 pt) {
     vec2 eps = vec2(1.0, -1.0) * 0.0005;
-    
+
     return normalize(eps.xyy * distanceToObject(pt + eps.xyy) +
                      eps.yyx * distanceToObject(pt + eps.yyx) +
                      eps.yxy * distanceToObject(pt + eps.yxy) +
@@ -47,22 +47,22 @@ vec3 calculateNormal(in vec3 pt) {
 void main() {
     vec2 st = (gl_FragCoord.xy) / u_resolution.xy - vec2(0.5, 0.5);
     st.x *= u_resolution.x / u_resolution.y;
-    
+
     vec3 rayOrigin = vec3(0.0, 0.0, 1.0);
     vec3 rayDirection = normalize(vec3(st, 0.0) - rayOrigin);
-    
+
     float distance;
     float photonPosition = 1.0;
-    
+
     for (int i = 0; i < 100; i += 1) {
         distance = distanceToObject(rayOrigin + rayDirection * photonPosition);
         photonPosition += distance;
-        
+
         if (distance < 0.01) {
             break;
         }
     }
-    
+
     if (distance > 0.01) {
         gl_FragColor = vec4(vec3(0.140,0.120,0.106), 1.000);
     } else {
